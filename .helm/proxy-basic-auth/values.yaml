@@ -1,0 +1,50 @@
+# Default values for proxy-basic-auth.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: egeneralov/proxy-basic-auth
+  tag: latest
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+
+env:
+  - name: USER
+    value: egeneralov
+  - name: PASSWD
+    value: egeneralov
+  - name: PROXY_PASS
+    value: http://kibana.logging.svc.cluster.local:5601
+  - name: RESOLVER
+    value: 8.8.8.8
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  paths: ['/']
+  hosts:
+    - chart-example.local
+  tls: []
+
+resources:
+#   limits:
+#    cpu: 50m
+#    memory: 28Mi
+  requests:
+   cpu: 50m
+   memory: 28Mi
+
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
