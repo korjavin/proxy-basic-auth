@@ -14,6 +14,9 @@ server {
 }
 EOF
 
+echo ${USER}
+echo ${PROXY_PASS}
+
 mkdir -p /run/nginx/;
 nginx -g daemon\ off\;
 
