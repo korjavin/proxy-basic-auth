@@ -1,6 +1,7 @@
 #!/bin/sh -xe
 
 htpasswd -Bbn ${USER} ${PASSWD} > /etc/nginx/htpasswd
+sed -i 's/client_max_body_size 1m;/client_max_body_size 100m;/g' /etc/nginx/nginx.conf
 
 cat << EOF > /etc/nginx/conf.d/default.conf
 server {
